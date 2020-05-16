@@ -1,0 +1,79 @@
+<div class="main-panel">
+    <div class="content">
+        <div class="page-inner">
+            <div class="page-header">
+                <h4 class="page-title">{{object_title}}</h4>
+                 <ul class="breadcrumbs">
+                    <li class="nav-home">
+                        <a href="#">
+                            <i class="flaticon-home"></i>
+                        </a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a href="#">Tables</a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Basic Tables</a>
+                    </li> -->
+                </ul> 
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header bg-default card-header-form text-right">
+                            <div class="card-options">
+                                <!-- <button type="button" class="btn btn-sm btn-green" (click) = "show()"><i class="fa fa-plus"></i> Nueva Unidad de Medida</button> -->
+                                <a class="btn btn-xs btn-primary" routerLink="/platform/new-product"><i class="fa fa-plus"></i> {{btn_new}}</a>
+                            </div>
+                        </div>
+                        <div class="card-body card-body-form">
+                            <div>
+                                <input type="text" class="form-control input-sm input-search" placeholder='&#xf002; Buscar por Nombre' [(ngModel)]="term">
+                            </div>
+                            <table class="table table-sm table-bordered table-hover table-form">
+                                <thead>
+                                    <tr class="th-form">
+                                        <th scope="col">Código</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Acciones</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let product of Products | filter:term | paginate: { itemsPerPage: 10, currentPage: p } " class="tr-result">
+                                        <td width="20%">{{ product.code }}</td>
+                                        <td width="40%">{{ product.name }}</td>
+                                        <td width="15%" class="text-right">
+                                                <!-- <button class="card-options-collapse option" (click)="showEliminar(unit.uuid, unit.name)"  data-toggle="card-collapse"><i class="fe fe-trash"></i></button> -->
+                                            <a [routerLink]="['/platform/delete-product/', product.uuid]" class="card-options-remove option" data-toggle="card-remove"><i class="fa fa-trash"></i></a>
+                                            <a [routerLink]="['/platform/update-product/', product.uuid]" class="card-options-remove option" data-toggle="card-remove"><i class="fa fa-edit"></i></a>
+                                            <a [routerLink]="['/platform/product-suppliers/', product.uuid]" class="card-options-remove option" data-toggle="card-remove"><i class="fa fa-truck"></i></a>
+
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                                
+                            </table>
+                        </div>
+                        <div class="card-footer card-pagination text-right">
+                            <pagination-controls 
+                                (pageChange)="p = $event"
+                                responsive="true"
+                                previousLabel="Anterior"
+                                nextLabel="Siguiente"
+                            ></pagination-controls>
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

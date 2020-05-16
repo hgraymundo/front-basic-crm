@@ -1,0 +1,96 @@
+<div class="main-panel">
+    <div class="content">
+        <div class="page-inner">
+            <div class="page-header">
+                <h4 class="page-title">{{object_title}}</h4>
+                 <ul class="breadcrumbs">
+                    <li class="nav-home">
+                        <a href="#">
+                            <i class="flaticon-home"></i>
+                        </a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a href="#">Tables</a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Basic Tables</a>
+                    </li> -->
+                </ul> 
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header bg-default card-header-form text-right">
+                            <div class="card-options">
+                                <a class="btn btn-xs btn-primary" routerLink="/platform/new-move"><i class="fa fa-plus"></i> {{btn_new}}</a>
+                            </div>
+                        </div>
+                        <div class="card-body card-body-form">
+                            <div class="card-filters" style="padding: 0px;">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="smallSelect">Tienda</label>
+                                                <select class="form-control form-control-sm" id="store" (change)='loadInventories($event)' id="smallSelect">
+                                                    <option disabled selected>Selecciona una opción</option>
+                                                    <option *ngFor="let store of Stores" value={{store.uuid}}> {{store.name}}</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="smallSelect">Inventario</label>
+                                                <select class="form-control form-control-sm" (change)='loadStock($event)' id="smallSelect">
+                                                    <option disabled selected>Selecciona una opción</option>
+                                                    <option *ngFor="let inventory of Inventories" value={{inventory.uuid}}>{{inventory.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <table class="table table-sm table-bordered table-hover table-form">
+                                <thead>
+                                    <tr class="th-form">
+                                        <th scope="col">Código</th>
+                                        <th scope="col">Producto</th>
+                                        <th scope="col">Mínimo</th>
+                                        <th scope="col">Máximo</th>
+                                        <th scope="col">Stock</th>
+                                        <th scope="col">Estatus</th> 
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let stock of Stock | filter:term | paginate: { itemsPerPage: 10, currentPage: p } " class="tr-result">
+                                        <td width="10%">{{stock.product.code}}</td>
+                                        <td width="30%">{{stock.product.name}}</td>
+                                        <td width="10%">{{stock.min}}</td>
+                                        <td width="10%">{{stock.max}}</td>
+                                        <td width="10%">{{stock.quantity}}</td>
+                                        <td width="10%" [ngClass]="">{{stock.quantity > stock.max?'Sobre Stock':stock.quantity < stock.min?'Reordenar':''}}</td>
+                                    </tr>
+                                </tbody>
+                                
+                            </table>
+                        </div>
+                        <div class="card-footer card-pagination text-right">
+                            <pagination-controls 
+                                (pageChange)="p = $event"
+                                responsive="true"
+                                previousLabel="Anterior"
+                                nextLabel="Siguiente"
+                            ></pagination-controls>
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
